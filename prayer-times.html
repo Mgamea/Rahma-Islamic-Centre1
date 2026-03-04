@@ -273,7 +273,7 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#b3c1d2dbded2dac0dfd2dedad0d0d6ddc7c1d6f3d4ded2dadf9dd0dcde"><span class="__cf_email__" data-cfemail="d3a1b2bbbeb2baa0bfb2bebab0b0b6bda7a1b693b4beb2babffdb0bcbe">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
             </div>
         </div>
                 <div class="footer-bottom">
@@ -282,22 +282,21 @@
             </div>
         </div>
     </footer>
-        <script src="shared.js"></script>
+            <script src="shared.js"></script>
     <script>
-/* ── 1. HORLOGE ── */
+/* ── HORLOGE ── */
 (function tick(){
     var el = document.getElementById('todayClock');
     if (el) el.textContent = new Date().toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit', hour12:true});
     setTimeout(tick, 1000);
 })();
 
-/* ── 2. DATE ── */
 (function(){
     var el = document.getElementById('todayDate');
     if (el) el.textContent = new Date().toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
 })();
 
-/* ── 3. HELPERS ── */
+/* ── HELPERS ── */
 function addM(t, m) {
     var p = t.split(':').map(Number), tot = p[0]*60 + p[1] + m;
     return String(Math.floor(tot/60) % 24).padStart(2,'0') + ':' + String(tot%60).padStart(2,'0');
@@ -308,159 +307,140 @@ function fmtTime(raw) {
     var h = parseInt(t[0]), m = t[1];
     return (h % 12 || 12) + ':' + m + ' ' + (h >= 12 ? 'PM' : 'AM');
 }
+function setBadge(src) {
+    var badge = document.getElementById('apiBadge');
+    if (!badge) return;
+    var colors = {mawaqit:'#4ade80', aladhan:'#fbbf24', static:'#9ca3af'};
+    var labels = {mawaqit:'Mawaqit.net ✓', aladhan:'Aladhan API', static:'Horaires statiques'};
+    badge.innerHTML = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + colors[src] + ';margin-right:8px;"></span>' + labels[src];
+}
 
-/* ── 4. CHARGER AUJOURD'HUI — Mawaqit → Aladhan → static ── */
+/* ── APPLIQUER LES HEURES (IDs réels: t-fajr, iq-fajr, tp-fajr) ── */
+function applyPrayers(T, src) {
+    setBadge(src);
+    var IQ = {Fajr:20, Dhuhr:20, Asr:15, Maghrib:5, Isha:15};
+    var keys = ['Fajr','Dhuhr','Asr','Maghrib','Isha'];
+    var tIds = {'Fajr':'t-fajr','Dhuhr':'t-dhuhr','Asr':'t-asr','Maghrib':'t-maghrib','Isha':'t-isha'};
+    var iIds = {'Fajr':'iq-fajr','Dhuhr':'iq-dhuhr','Asr':'iq-asr','Maghrib':'iq-maghrib','Isha':'iq-isha'};
+    var cIds = {'Fajr':'tp-fajr','Dhuhr':'tp-dhuhr','Asr':'tp-asr','Maghrib':'tp-maghrib','Isha':'tp-isha'};
+
+    var nm = new Date().getHours()*60 + new Date().getMinutes();
+    var active = 'tp-isha';
+
+    keys.forEach(function(k) {
+        var raw = T[k] || T[k.toLowerCase()] || '';
+        var t24 = raw.split(' ')[0];
+
+        /* Adhan */
+        var el = document.getElementById(tIds[k]);
+        if (el) { el.textContent = fmtTime(t24); el.classList.remove('loading'); }
+
+        /* Iqamah */
+        var iq = document.getElementById(iIds[k]);
+        if (iq && t24) {
+            iq.textContent = 'Iqamah: ' + fmtTime(addM(t24, IQ[k]));
+            iq.classList.remove('loading');
+        }
+
+        /* Prière active */
+        if (t24) {
+            var p = t24.split(':').map(Number);
+            if (nm >= p[0]*60 + p[1]) active = cIds[k];
+        }
+    });
+
+    /* Appliquer classe active */
+    Object.values(cIds).forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.classList.toggle('active-prayer', id === active);
+    });
+}
+
+/* ── CHARGER AUJOURD'HUI: Mawaqit → Aladhan → static ── */
 async function loadToday() {
-    var timings = null;
-    var src = 'static';
+    var T = null, src = 'static';
 
-    /* Mawaqit (mosquée Rahma Winnipeg officielle) */
     try {
         var r = await fetch('https://mawaqit.net/api/2.0/mosque/by-slug/rahma-islamic-centre-winnipeg/prayer-times');
         if (r.ok) {
             var d = await r.json();
             if (d.times && d.times.length >= 6) {
-                timings = {Fajr:d.times[0], Dhuhr:d.times[2], Asr:d.times[3], Maghrib:d.times[4], Isha:d.times[5]};
+                T = {Fajr:d.times[0], Dhuhr:d.times[2], Asr:d.times[3], Maghrib:d.times[4], Isha:d.times[5]};
                 src = 'mawaqit';
             }
         }
     } catch(e) {}
 
-    /* Aladhan fallback */
-    if (!timings) {
+    if (!T) {
         try {
             var now = new Date();
             var url = 'https://api.aladhan.com/v1/timings/'
-                + now.getDate() + '-' + (now.getMonth()+1) + '-' + now.getFullYear()
+                + now.getDate()+'-'+(now.getMonth()+1)+'-'+now.getFullYear()
                 + '?latitude=49.8951&longitude=-97.1384&method=2';
             var res = await fetch(url, {mode:'cors'});
             var data = await res.json();
-            if (data.code === 200) {
-                timings = data.data.timings;
-                src = 'aladhan';
-            }
+            if (data.code === 200) { T = data.data.timings; src = 'aladhan'; }
         } catch(e) {}
     }
 
-    /* Static final fallback */
-    if (!timings) {
-        timings = {Fajr:'06:12', Dhuhr:'12:41', Asr:'15:34', Maghrib:'18:09', Isha:'19:38'};
+    if (!T) {
+        T = {Fajr:'06:12',Dhuhr:'12:41',Asr:'15:34',Maghrib:'18:09',Isha:'19:38'};
     }
 
-    /* Badge source */
-    var badge = document.getElementById('apiBadge');
-    if (badge) {
-        var colors = {mawaqit:'#4ade80', aladhan:'#fbbf24', static:'#9ca3af'};
-        var labels = {mawaqit:'Mawaqit.net ✓', aladhan:'Aladhan API', static:'Horaires statiques'};
-        badge.innerHTML = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + colors[src] + ';margin-right:8px;"></span>' + labels[src];
-    }
-
-    /* Afficher les heures d'adhan */
-    var map = {
-        'fajr-adhan':    timings.Fajr,
-        'dhuhr-adhan':   timings.Dhuhr,
-        'asr-adhan':     timings.Asr,
-        'maghrib-adhan': timings.Maghrib,
-        'isha-adhan':    timings.Isha,
-        'sunrise-time':  timings.Sunrise
-    };
-    Object.keys(map).forEach(function(id) {
-        var el = document.getElementById(id);
-        if (el && map[id]) { el.textContent = fmtTime(map[id]); el.classList.remove('loading'); }
-    });
-
-    /* Iqamah = adhan + offset */
-    var iqOffset = {Fajr:20, Dhuhr:20, Asr:15, Maghrib:5, Isha:15};
-    var iqMap = {
-        'fajr-iqamah':    timings.Fajr,
-        'dhuhr-iqamah':   timings.Dhuhr,
-        'asr-iqamah':     timings.Asr,
-        'maghrib-iqamah': timings.Maghrib,
-        'isha-iqamah':    timings.Isha
-    };
-    var offKeys = ['Fajr','Dhuhr','Asr','Maghrib','Isha'];
-    var iqIds   = ['fajr-iqamah','dhuhr-iqamah','asr-iqamah','maghrib-iqamah','isha-iqamah'];
-    iqIds.forEach(function(id, i) {
-        var el = document.getElementById(id);
-        var key = offKeys[i];
-        if (el && timings[key]) {
-            el.textContent = fmtTime(addM(timings[key].split(' ')[0], iqOffset[key]));
-            el.classList.remove('loading');
-        }
-    });
-
-    /* Prière active */
-    var nm = new Date().getHours() * 60 + new Date().getMinutes();
-    var prayers = ['Fajr','Dhuhr','Asr','Maghrib','Isha'];
-    var cardIds = ['card-fajr','card-dhuhr','card-asr','card-maghrib','card-isha'];
-    var active  = cardIds[4];
-    prayers.forEach(function(k, i) {
-        if (timings[k]) {
-            var p = timings[k].split(' ')[0].split(':').map(Number);
-            if (nm >= p[0]*60 + p[1]) active = cardIds[i];
-        }
-    });
-    cardIds.forEach(function(id) {
-        var el = document.getElementById(id);
-        if (el) el.classList.toggle('active-prayer', id === active);
-    });
-
-    return timings;
+    applyPrayers(T, src);
+    return T;
 }
 
-/* ── 5. CALENDRIER MENSUEL — Mawaqit → Aladhan ── */
+/* ── CALENDRIER MENSUEL ── */
 async function loadMonth(month, year) {
-    var rows = document.getElementById('calBody');
-    if (!rows) return;
-    rows.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--muted)">Chargement...</td></tr>';
+    var tbody = document.querySelector('#prayerTable tbody');
+    if (!tbody) return;
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--muted)"><i class="fas fa-spinner fa-spin" style="color:var(--gold);margin-right:8px"></i>Chargement...</td></tr>';
 
-    var days = null;
-
-    /* Essayer Aladhan calendar */
     try {
-        var url = 'https://api.aladhan.com/v1/calendar/' + year + '/' + month + '?latitude=49.8951&longitude=-97.1384&method=2';
+        var url = 'https://api.aladhan.com/v1/calendar/'+year+'/'+month+'?latitude=49.8951&longitude=-97.1384&method=2';
         var res = await fetch(url, {mode:'cors'});
         var data = await res.json();
-        if (data.code === 200) days = data.data;
-    } catch(e) {}
+        if (data.code !== 200) throw new Error('bad');
 
-    if (!days) {
-        rows.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--muted)">Impossible de charger le calendrier.</td></tr>';
-        return;
+        var html = '';
+        var today = new Date();
+        data.data.forEach(function(day) {
+            var g  = day.date.gregorian;
+            var hj = day.date.hijri;
+            var t  = day.timings;
+            var dt = new Date(+g.year, g.month.number-1, +g.day);
+            var isFri   = dt.getDay() === 5;
+            var isToday = +g.year===today.getFullYear() && g.month.number-1===today.getMonth() && +g.day===today.getDate();
+            var rowStyle = isToday ? 'background:rgba(201,168,76,0.12);font-weight:600;' : (isFri ? 'background:rgba(201,168,76,0.05);' : '');
+            html += '<tr style="'+rowStyle+'">';
+            html += '<td>'+g.day+(isFri?' <small style="color:var(--gold)">Jum.</small>':'')+'</td>';
+            html += '<td>'+hj.day+' '+hj.month.en+'</td>';
+            html += '<td>'+fmtTime(t.Fajr)+'</td>';
+            html += '<td>'+fmtTime(t.Sunrise)+'</td>';
+            html += '<td>'+fmtTime(t.Dhuhr)+'</td>';
+            html += '<td>'+fmtTime(t.Asr)+'</td>';
+            html += '<td>'+fmtTime(t.Maghrib)+'</td>';
+            html += '</tr>';
+        });
+        tbody.innerHTML = html;
+    } catch(e) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--muted)">Impossible de charger le calendrier.</td></tr>';
     }
-
-    var html = '';
-    days.forEach(function(day) {
-        var t  = day.timings;
-        var dt = new Date(day.date.gregorian.year, day.date.gregorian.month.number - 1, day.date.gregorian.day);
-        var isFri = dt.getDay() === 5;
-        html += '<tr' + (isFri ? ' style="background:rgba(201,168,76,0.06)"' : '') + '>';
-        html += '<td>' + day.date.gregorian.day + (isFri ? ' <small style="color:var(--gold)">Jumu'ah</small>' : '') + '</td>';
-        html += '<td>' + day.date.hijri.day + ' ' + day.date.hijri.month.en + '</td>';
-        html += '<td>' + fmtTime(t.Fajr)    + '</td>';
-        html += '<td>' + fmtTime(t.Sunrise) + '</td>';
-        html += '<td>' + fmtTime(t.Dhuhr)   + '</td>';
-        html += '<td>' + fmtTime(t.Asr)     + '</td>';
-        html += '<td>' + fmtTime(t.Maghrib) + '</td>';
-        html += '</tr>';
-    });
-    rows.innerHTML = html;
 }
 
-/* ── 6. INIT ── */
+/* ── INIT ── */
 document.addEventListener('DOMContentLoaded', function() {
     loadToday();
-
     var now = new Date();
-    loadMonth(now.getMonth() + 1, now.getFullYear());
+    loadMonth(now.getMonth()+1, now.getFullYear());
 
     var picker = document.getElementById('monthPicker');
     if (picker) {
-        var m = new Date(); m.setDate(1);
-        picker.value = m.toISOString().slice(0,7);
+        picker.value = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
         picker.addEventListener('change', function() {
-            var parts = this.value.split('-');
-            loadMonth(parseInt(parts[1]), parseInt(parts[0]));
+            var p = this.value.split('-');
+            loadMonth(parseInt(p[1]), parseInt(p[0]));
         });
     }
 });
