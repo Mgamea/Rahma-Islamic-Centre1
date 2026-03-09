@@ -131,7 +131,7 @@
         <a href="programs.html" onclick="closeMobile()">Programs & Services</a>
         <a href="education.html" onclick="closeMobile()">Education</a>
         <a href="events.html" onclick="closeMobile()">Events</a>
-        <a href="about.html" onclick="closeMobile()">About</a>
+        <a href="gallery.html" onclick="closeMobile()">Gallery</a>
         <a href="contact.html" onclick="closeMobile()">Contact</a>
         <a href="donate.html" class="mobile-donate active" onclick="closeMobile()">Donate</a>
     </div>
@@ -144,7 +144,7 @@
                 <li><a href="programs.html">Programs & Services</a><div class="nav-drop"><a href="programs.html"><i class="fas fa-th-large"></i>All Programs</a><a href="activities.html"><i class="fas fa-running"></i>Activities & Classes</a><a href="programs.html#foodbank"><i class="fas fa-hand-holding-heart"></i>Food Bank</a><a href="programs.html#counseling"><i class="fas fa-comments"></i>Spiritual Counseling</a></div></li>
                 <li><a href="education.html">Education</a><div class="nav-drop"><a href="education.html"><i class="fas fa-book-open"></i>All Classes</a><a href="education.html#adult-quran"><i class="fas fa-quran"></i>Adult Quran Class</a><a href="education.html#kids-quran"><i class="fas fa-child"></i>Kids Quran Class</a><a href="education.html#hifdh"><i class="fas fa-star"></i>Hifdh Program</a><a href="education.html#arabic"><i class="fas fa-language"></i>Arabic Class</a></div></li>
                 <li><a href="events.html">Events</a><div class="nav-drop"><a href="events.html"><i class="fas fa-calendar-star"></i>Upcoming Events</a><a href="events.html#ramadan"><i class="fas fa-moon"></i>Ramadan Programs</a><a href="events.html#eid"><i class="fas fa-gift"></i>Eid Celebrations</a><a href="newsletter.html"><i class="fas fa-envelope"></i>Newsletter</a></div></li>
-                <li><a href="about.html">About</a><div class="nav-drop"><a href="about.html#intro"><i class="fas fa-users"></i>Who We Are</a><a href="about.html#mission"><i class="fas fa-bullseye"></i>Our Mission</a><a href="about.html#values"><i class="fas fa-heart"></i>Core Values</a></div></li>
+                <li><a href="gallery.html">Gallery</a><div class="nav-drop"><a href="index.html#about"><i class="fas fa-users"></i>Who We Are</a><a href="index.html#mission"><i class="fas fa-bullseye"></i>Our Mission</a><a href="index.html#values"><i class="fas fa-heart"></i>Core Values</a></div></li>
                 <li><a href="contact.html">Contact</a><div class="nav-drop"><a href="contact.html#form"><i class="fas fa-paper-plane"></i>Send a Message</a><a href="contact.html#location"><i class="fas fa-map-marker-alt"></i>Location & Hours</a></div></li>
             </ul>
             <a href="donate.html" class="nav-donate" style="background:var(--gold);color:var(--navy);">Donate</a>
@@ -177,28 +177,13 @@
                 <div class="donate-form-box reveal reveal-delay-2">
                     <h3>Make a Donation</h3>
                     <p class="form-sub">All donations directly support our community programs.</p>
-                    <div class="currency-row">
-                        <button class="cur-btn active" id="btnCAD" onclick="setCur('CAD')">CAD</button>
-                        <button class="cur-btn" id="btnUSD" onclick="setCur('USD')">USD</button>
+                    <div style="background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.2);padding:24px;margin-bottom:24px;text-align:center;">
+                        <i class="fas fa-shield-alt" style="color:var(--gold);font-size:2rem;margin-bottom:12px;display:block;"></i>
+                        <p style="color:rgba(255,255,255,0.7);font-size:0.9rem;line-height:1.7;margin-bottom:0;">We use <strong style="color:var(--gold)">Zeffy</strong> — a 100% free donation platform. Every dollar you give goes directly to Rahma Islamic Centre with zero platform fees.</p>
                     </div>
-                    <div class="amounts-grid">
-                        <button class="amt-btn" onclick="setAmt(10,this)">$10</button>
-                        <button class="amt-btn" onclick="setAmt(25,this)">$25</button>
-                        <button class="amt-btn selected" onclick="setAmt(50,this)">$50</button>
-                        <button class="amt-btn" onclick="setAmt(100,this)">$100</button>
-                        <button class="amt-btn" onclick="setAmt(250,this)">$250</button>
-                        <button class="amt-btn" onclick="setAmt(500,this)">$500</button>
-                    </div>
-                    <div class="custom-row">
-                        <div class="cur-tag" id="curTag">CAD</div>
-                        <input type="number" class="custom-input" id="donateAmt" value="50" placeholder="Custom amount" min="1" oninput="clearAmts()">
-                    </div>
-                    <button class="donate-submit" onclick="processDonate()">Donate Now →</button>
-                    <p class="secure-note"><i class="fas fa-lock"></i>100% Secure &amp; Tax-Deductible</p>
-                </div>
-            </div>
-        </div>
-    </section>
+                    <a href="https://www.zeffy.com/en-CA/donation-form/rahma-islamic-centre" target="_blank" rel="noopener" class="donate-submit" style="display:block;text-align:center;text-decoration:none;">Donate Now via Zeffy →</a>
+                    <p class="secure-note" style="margin-top:16px;"><i class="fas fa-lock"></i>100% Secure &amp; Tax-Deductible</p>
+                </div></section>
     <section class="newsletter-section"><div class="container"><div class="newsletter-inner">
         <div class="newsletter-text"><h3>Stay Connected</h3><p>Get updates on events &amp; announcements</p></div>
         <form class="newsletter-form" onsubmit="subscribeNewsletter(event)"><input type="email" class="newsletter-input" placeholder="Your email address" required><button type="submit" class="newsletter-btn">Subscribe</button></form>
@@ -209,7 +194,7 @@
             <div class="footer-col"><h4>Navigation</h4><ul>
                 <li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li>
                 <li><a href="programs.html">Programs &amp; Services</a></li><li><a href="education.html">Education</a></li>
-                <li><a href="events.html">Events</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>
+                <li><a href="events.html">Events</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li>
             </ul></div>
             <div class="footer-col"><h4>Programs</h4><ul>
                 <li><a href="education.html">Quran Classes</a></li><li><a href="education.html">Arabic Classes</a></li>
@@ -218,7 +203,7 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#1765767f7a767e647b767a7e7474727963657257707a767e7b3974787a"><span class="__cf_email__" data-cfemail="3644575e5b575f455a575b5f5555535842445376515b575f5a1855595b">[email&#160;protected]</span></a></span></div>
             </div>
         </div>
                         <div class="footer-bottom">
@@ -228,11 +213,5 @@
         </div>
     </footer>
     <script src="shared.js"></script>
-    <script>
-    var _cur='CAD';
-    function setCur(c){_cur=c;var tag=document.getElementById('curTag');if(tag)tag.textContent=c;['CAD','USD'].forEach(function(x){var b=document.getElementById('btn'+x);if(!b)return;b.style.background=x===c?'rgba(201,168,76,0.15)':'transparent';b.style.borderColor=x===c?'var(--gold)':'rgba(255,255,255,0.15)';b.style.color=x===c?'var(--gold)':'rgba(255,255,255,0.5)';});}
-    function setAmt(v,el){var inp=document.getElementById('donateAmt');if(inp)inp.value=v;document.querySelectorAll('.amount-pill').forEach(function(p){p.classList.remove('selected');});el.classList.add('selected');}
-    function processDonate(){var inp=document.getElementById('donateAmt');var amt=inp?parseFloat(inp.value):0;if(!amt||amt<=0){alert('Please enter a valid amount.');return;}alert('JazakAllah Khayr! '+_cur+' $'+amt.toFixed(2));}
-    </script>
 </body>
 </html>

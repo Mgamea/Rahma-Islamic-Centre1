@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us — Rahma Islamic Centre</title>
+    <title>Gallery — Rahma Islamic Centre</title>
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -106,16 +106,31 @@
     .nav-drop a:hover i { opacity: 1; }
     </style>
     <!-- /DROPDOWN NAV CSS -->
+
+    <style>
+        .gallery-page-section { background: var(--cream); padding: 80px 24px; background-image: url('pattern.png'); background-size: 400px; background-repeat: repeat; }
+        .gallery-page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+        .gallery-page-item { position: relative; overflow: hidden; height: 260px; cursor: pointer; background: var(--navy); }
+        .gallery-page-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; display: block; }
+        .gallery-page-item:hover img { transform: scale(1.06); }
+        .gallery-page-item .overlay { position: absolute; inset: 0; background: rgba(11,31,58,0.4); opacity: 0; transition: opacity 0.3s; display: flex; align-items: center; justify-content: center; }
+        .gallery-page-item:hover .overlay { opacity: 1; }
+        .gallery-page-item .overlay i { color: var(--gold); font-size: 2rem; }
+        .gallery-empty { text-align: center; padding: 80px 24px; color: var(--muted); }
+        .gallery-empty i { font-size: 4rem; color: rgba(201,168,76,0.3); margin-bottom: 20px; display: block; }
+        .gallery-empty h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--navy); margin-bottom: 12px; }
+        @media (max-width: 600px) { .gallery-page-grid { grid-template-columns: repeat(2, 1fr); } .gallery-page-item { height: 160px; } }
+    </style>
 </head>
 <body>
-    <div id="loader"><div class="loader-text">RAHMA</div><div class="loader-bar"><div class="loader-fill"></div></div></div>
+<div id="loader"><div class="loader-text">RAHMA</div><div class="loader-bar"><div class="loader-fill"></div></div></div>
         <div class="mobile-menu" id="mobileMenu">
         <a href="index.html" onclick="closeMobile()">Home</a>
         <a href="prayer-times.html" onclick="closeMobile()">Prayer Times</a>
         <a href="programs.html" onclick="closeMobile()">Programs & Services</a>
         <a href="education.html" onclick="closeMobile()">Education</a>
         <a href="events.html" onclick="closeMobile()">Events</a>
-        <a href="gallery.html" onclick="closeMobile()">Gallery</a>
+        <a href="gallery.html" class="active" onclick="closeMobile()">Gallery</a>
         <a href="contact.html" class="active" onclick="closeMobile()">Contact</a>
         <a href="donate.html" class="mobile-donate" onclick="closeMobile()">Donate</a>
     </div>
@@ -128,74 +143,50 @@
                 <li><a href="programs.html">Programs & Services</a><div class="nav-drop"><a href="programs.html"><i class="fas fa-th-large"></i>All Programs</a><a href="activities.html"><i class="fas fa-running"></i>Activities & Classes</a><a href="programs.html#foodbank"><i class="fas fa-hand-holding-heart"></i>Food Bank</a><a href="programs.html#counseling"><i class="fas fa-comments"></i>Spiritual Counseling</a></div></li>
                 <li><a href="education.html">Education</a><div class="nav-drop"><a href="education.html"><i class="fas fa-book-open"></i>All Classes</a><a href="education.html#adult-quran"><i class="fas fa-quran"></i>Adult Quran Class</a><a href="education.html#kids-quran"><i class="fas fa-child"></i>Kids Quran Class</a><a href="education.html#hifdh"><i class="fas fa-star"></i>Hifdh Program</a><a href="education.html#arabic"><i class="fas fa-language"></i>Arabic Class</a></div></li>
                 <li><a href="events.html">Events</a><div class="nav-drop"><a href="events.html"><i class="fas fa-calendar-star"></i>Upcoming Events</a><a href="events.html#ramadan"><i class="fas fa-moon"></i>Ramadan Programs</a><a href="events.html#eid"><i class="fas fa-gift"></i>Eid Celebrations</a><a href="contact.html#newsletter"><i class="fas fa-envelope"></i>Newsletter</a></div></li>
-                <li><a href="gallery.html">Gallery</a><div class="nav-drop"><a href="index.html#about"><i class="fas fa-users"></i>Who We Are</a><a href="index.html#mission"><i class="fas fa-bullseye"></i>Our Mission</a><a href="index.html#values"><i class="fas fa-heart"></i>Core Values</a></div></li>
-                <li><a href="contact.html" class="active">Contact</a><div class="nav-drop"><a href="contact.html#form"><i class="fas fa-paper-plane"></i>Send a Message</a><a href="contact.html#location"><i class="fas fa-map-marker-alt"></i>Location & Hours</a></div></li>
+                <li><a href="gallery.html" class="active">Gallery</a><div class="nav-drop"><a href="index.html#about"><i class="fas fa-users"></i>Who We Are</a><a href="index.html#mission"><i class="fas fa-bullseye"></i>Our Mission</a><a href="index.html#values"><i class="fas fa-heart"></i>Core Values</a></div></li>
+                <li><a href="contact.html">Contact</a><div class="nav-drop"><a href="contact.html#form"><i class="fas fa-paper-plane"></i>Send a Message</a><a href="contact.html#location"><i class="fas fa-map-marker-alt"></i>Location & Hours</a></div></li>
             </ul>
             <a href="donate.html" class="nav-donate">Donate</a>
             <div class="hamburger" id="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
         </div>
     </nav>
 
-    <div class="page-header">
+        <div class="page-header">
         <div class="page-header-pattern"></div><div class="page-header-overlay"></div>
-        <div class="page-header-content"><span class="page-header-eyebrow">We'd Love to Hear From You</span><h1>Contact <em>Us</em></h1></div>
+        <div class="page-header-content">
+            <span class="page-header-eyebrow">Our Community</span>
+            <h1>Community <em>Gallery</em></h1>
+        </div>
     </div>
-
-    <section class="contact-section" id="form">
+    <section class="gallery-page-section">
         <div class="container">
-            <div class="contact-grid">
-                <div class="contact-form-box reveal">
-                    <h2>Send Us a Message</h2>
-                    <p class="sub">Fill in the form and we'll get back to you as soon as possible.</p>
-                    <form id="contactForm">
-                        <div class="form-group"><label for="fullName">Full Name</label><input type="text" id="fullName" name="fullName" required></div>
-                        <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" required></div>
-                        <div class="form-group"><label for="subject">Subject</label><input type="text" id="subject" name="subject" required></div>
-                        <div class="form-group"><label for="message">Message (optional)</label><textarea id="message" name="message" rows="5"></textarea></div>
-                        <button type="submit" class="submit-btn" id="submitBtn">Send Message →</button>
-                    </form>
-                </div>
-                <div class="contact-info-panel reveal reveal-delay-2">
-                    <h2>Get in Touch</h2>
-                    <p class="sub">Visit us, call us, or send us an email — we're here for you.</p>
-                    <div class="contact-detail">
-                        <div class="contact-icon-wrap"><i class="fas fa-map-marker-alt"></i></div>
-                        <div><h3>Address</h3><p>574 Watt St, Winnipeg, MB R2K 4K1</p></div>
-                    </div>
-                    <div class="contact-detail">
-                        <div class="contact-icon-wrap"><i class="fas fa-phone"></i></div>
-                        <div><h3>Phone</h3><p><a href="tel:+14317923791">+1 (431) 792-3791</a></p></div>
-                    </div>
-                    <div class="contact-detail">
-                        <div class="contact-icon-wrap"><i class="fas fa-envelope"></i></div>
-                        <div><h3>Email</h3><p><a href="/cdn-cgi/l/email-protection#c7b5a6afaaa6aeb4aba6aaaea4a4a2a9b3b5a287a0aaa6aeabe9a4a8aa"><span class="__cf_email__" data-cfemail="186a79707579716b747975717b7b7d766c6a7d587f75797174367b7775">[email&#160;protected]</span></a></p></div>
-                    </div>
-                    <div class="contact-detail">
-                        <div class="contact-icon-wrap"><i class="fas fa-mosque"></i></div>
-                        <div><h3>Jumu'ah</h3><p>Chalmers Community Centre<br>480 Chalmers Ave, Winnipeg, MB<br>12:40 pm &amp; 1:30 pm</p></div>
-                    </div>
-                </div>
+            <div style="text-align:center;margin-bottom:50px;">
+                <span class="section-label">Moments</span>
+                <h2 class="section-title">Our <em>Memories</em></h2>
+                <p style="color:var(--muted);max-width:600px;margin:0 auto;">A glimpse into the life of our community — prayers, events, education, and celebrations together.</p>
+            </div>
+            <div class="gallery-page-grid" id="galleryGrid">
+                <!-- Photos à ajouter — nommez vos fichiers gallery1.jpg, gallery2.jpg ... -->
+                <div class="gallery-page-item"><img src="gallery1.jpg" alt="Community"><div class="overlay"><i class="fas fa-expand"></i></div></div>
+                <div class="gallery-page-item"><img src="gallery2.jpg" alt="Prayer"><div class="overlay"><i class="fas fa-expand"></i></div></div>
+                <div class="gallery-page-item"><img src="gallery3.jpg" alt="Education"><div class="overlay"><i class="fas fa-expand"></i></div></div>
+                <div class="gallery-page-item"><img src="gallery4.jpg" alt="Event"><div class="overlay"><i class="fas fa-expand"></i></div></div>
+                <div class="gallery-page-item"><img src="gallery5.jpg" alt="Eid"><div class="overlay"><i class="fas fa-expand"></i></div></div>
+                <div class="gallery-page-item"><img src="gallery6.jpg" alt="Youth"><div class="overlay"><i class="fas fa-expand"></i></div></div>
+                <div class="gallery-page-item"><img src="gallery7.jpg" alt="Ramadan"><div class="overlay"><i class="fas fa-expand"></i></div></div>
+                <div class="gallery-page-item"><img src="gallery8.jpg" alt="Community"><div class="overlay"><i class="fas fa-expand"></i></div></div>
             </div>
         </div>
     </section>
 
-    <div class="map-section" id="location">
-        <div class="map-wrapper">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2569.8635743394447!2d-97.13384!3d49.895100000000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52ea7156c33d8f6f%3A0x5e6f7b0e2e4a5f0a!2s574%20Watt%20St%2C%20Winnipeg%2C%20MB%20R2K%204K1!5e0!3m2!1sen!2sca!4v1234567890" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
+    <!-- LIGHTBOX -->
+    <div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;align-items:center;justify-content:center;">
+        <button onclick="closeLightbox()" style="position:absolute;top:20px;right:28px;background:none;border:none;color:#fff;font-size:2.5rem;cursor:pointer;line-height:1;">&times;</button>
+        <button onclick="prevPhoto()" style="position:absolute;left:20px;background:none;border:none;color:rgba(255,255,255,0.6);font-size:2rem;cursor:pointer;padding:20px;">&#8249;</button>
+        <img id="lightboxImg" src="" alt="" style="max-width:90vw;max-height:85vh;object-fit:contain;border:2px solid rgba(201,168,76,0.3);">
+        <button onclick="nextPhoto()" style="position:absolute;right:20px;background:none;border:none;color:rgba(255,255,255,0.6);font-size:2rem;cursor:pointer;padding:20px;">&#8250;</button>
     </div>
-    <!-- Newsletter section -->
-    <section id="newsletter" style="background:linear-gradient(135deg,#0B1F3A,#122a4e);padding:70px 24px;">
-        <div class="container" style="max-width:700px;margin:0 auto;text-align:center;">
-            <h2 style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;margin-bottom:16px">Stay <em style="color:#C9A84C">Informed</em></h2>
-            <p style="color:rgba(255,255,255,0.7);margin-bottom:36px;font-size:1rem">Subscribe to our newsletter to get updates on events &amp; announcements.</p>
-            <form class="newsletter-form" onsubmit="subscribeNewsletter(event)" style="max-width:480px;margin:0 auto;">
-                <input type="email" class="newsletter-input" placeholder="Your email address" required>
-                <button type="submit" class="newsletter-btn">Subscribe</button>
-            </form>
-        </div>
-    </section>
-    <section class="newsletter-section"><div class="container"><div class="newsletter-inner">
+<section class="newsletter-section"><div class="container"><div class="newsletter-inner">
         <div class="newsletter-text"><h3>Stay Connected</h3><p>Get updates on events &amp; announcements</p></div>
         <form class="newsletter-form" onsubmit="subscribeNewsletter(event)"><input type="email" class="newsletter-input" placeholder="Your email address" required><button type="submit" class="newsletter-btn">Subscribe</button></form>
     </div></div></section>
@@ -224,13 +215,5 @@
         </div>
     </footer>
     <script src="shared.js"></script>
-    <script>
-    document.getElementById('contactForm') && document.getElementById('contactForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        var btn = document.getElementById('submitBtn');
-        btn.textContent = 'Sending…'; btn.disabled = true;
-        setTimeout(function() { btn.textContent = '✓ Message Sent!'; btn.style.background = '#2d6a4f'; }, 900);
-    });
-    </script>
 </body>
 </html>
