@@ -40,7 +40,7 @@
         .about-img-wrap::before { content: ''; position: absolute; top: -20px; left: -20px; right: 20px; bottom: 20px; border: 1px solid var(--gold); opacity: 0.4; z-index: 0; pointer-events: none; }
         .about-year { position: absolute; bottom: -20px; right: -20px; z-index: 2; background: var(--gold); color: var(--navy); padding: 18px 24px; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; text-align: center; line-height: 1.2; }
         .about-year strong { display: block; font-size: 2rem; }
-        .about-text p { font-size: 1.05rem; line-height: 1.85; color: var(--muted); margin-bottom: 20px; }
+        .about-text p { font-family: 'DM Sans', sans-serif; font-size: 1rem; line-height: 1.85; color: var(--muted); margin-bottom: 20px; font-weight: 300; }
         .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 48px; padding-top: 40px; border-top: 1px solid var(--border); }
         .stat-item { text-align: center; }
         .stat-number { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--navy); line-height: 1; display: block; }
@@ -233,7 +233,7 @@
                 <div class="prayer-card-item" id="card-asr"><i class="fas fa-cloud-sun prayer-icon"></i><div class="prayer-name">Asr</div><div class="prayer-time-val" id="asr-time">—</div></div>
                 <div class="prayer-card-item" id="card-maghrib"><i class="fas fa-cloud-moon prayer-icon"></i><div class="prayer-name">Maghrib</div><div class="prayer-time-val" id="maghrib-time">—</div></div>
                 <div class="prayer-card-item" id="card-isha"><i class="fas fa-star prayer-icon"></i><div class="prayer-name">Isha</div><div class="prayer-time-val" id="isha-time">—</div></div>
-                <div class="prayer-card-item"><i class="fas fa-mosque prayer-icon"></i><div class="prayer-name">Jumu'ah</div><div class="prayer-time-val" style="font-size:1.1rem;">1:45 &amp; 2:45 PM</div></div>
+                <div class="prayer-card-item"><i class="fas fa-mosque prayer-icon"></i><div class="prayer-name">Jumu'ah</div><div class="prayer-time-val" style="font-size:1.1rem;">12:30 &amp; 2:45 PM</div></div>
             </div>
             <div class="prayer-location-bar">
                 <i class="fas fa-map-marker-alt"></i>
@@ -244,21 +244,25 @@
     </section>
 
     <!-- ABOUT -->
-    <section class="about-intro">
+    <section class="about-section" id="about" style="padding:110px 24px;">
         <div class="container">
-            <div class="about-intro-grid">
+            <div class="about-grid">
                 <div class="about-img-wrap reveal">
                     <img src="mosque.jpg" alt="Rahma Community">
                     <div class="about-year"><strong>2018</strong>Founded</div>
+                </div>
+                <div class="about-text">
+                    <span class="section-label reveal">Who We Are</span>
+                    <h2 class="section-title reveal">A Home for the <em>Muslim Community</em> in Winnipeg</h2>
+                    <div class="divider reveal"></div>
+                    <p class="reveal">Winnipeg Rahma Islamic Centre is a vibrant and inclusive Islamic center dedicated to serving the spiritual, educational, and social needs of Muslims in Winnipeg's Kildonan area.</p>
+                    <p class="reveal reveal-delay-1">We are committed to the teachings of the Quran and the Sunnah, striving to promote compassion and unity among our members and the broader community.</p>
+                    <div class="about-stats reveal reveal-delay-2">
+                        <div class="stat-item"><span class="stat-number" data-target="5">0</span><span class="stat-label">Daily Prayers</span></div>
+                        <div class="stat-item"><span class="stat-number" data-target="5">0</span><span class="stat-label">Programs</span></div>
+                        <div class="stat-item"><span class="stat-number" data-target="2018">0</span><span class="stat-label"> Year</span></div>
                     </div>
-                    <div class="about-intro-text">
-                        <span class="section-label reveal">Who We Are</span>
-                        <h2 class="section-title reveal">A Home for the <em>Muslim Community</em></h2>
-                        <div class="divider reveal"></div>
-                        <p class="reveal">The Winnipeg Rahma Islamic Centre is a vibrant and inclusive Islamic Center dedicated to serving the spiritual, educational, and social needs of Muslims in Winnipeg. Our centre is a welcoming space for individuals of all ages, background, or level of religious knowledge.</p>
-                        <p class="reveal reveal-delay-1">Our mosque is committed to the teachings of the Quran and the Sunnah of the Prophet Muhammad (peace be upon him). We strive to promote compassion and unity among our members and the broader community.</p>
-                        <p class="reveal reveal-delay-2">With a focus on both religious education and community development, we offer various services to enrich the lives of our members and foster a spirit of brotherhood and sisterhood.</p>
-                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -396,7 +400,7 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#cbb9aaa3a6aaa2b8a7aaa6a2a8a8aea5bfb9ae8baca6aaa2a7e5a8a4a6"><span class="__cf_email__" data-cfemail="e496858c89858d978885898d8787818a909681a48389858d88ca878b89">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
             </div>
         </div>
                         <div class="footer-bottom">
@@ -405,6 +409,96 @@
             </div>
         </div>
     </footer>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
+    <script src="shared.js"></script>
+    <script>
+    /* ── PRAYER TIMES — PAGE HOME ── */
+    (function() {
+        function fmtTime(raw) {
+            if (!raw) return '—';
+            var t = raw.split(' ')[0].split(':');
+            var h = parseInt(t[0]), m = t[1];
+            return (h % 12 || 12) + ':' + m + ' ' + (h >= 12 ? 'PM' : 'AM');
+        }
+
+        async function loadHomePrayers() {
+            var T = null;
+
+            /* 1. Mawaqit */
+            try {
+                var r = await fetch('https://mawaqit.net/api/2.0/mosque/by-slug/rahma-islamic-centre-winnipeg/prayer-times');
+                if (r.ok) {
+                    var d = await r.json();
+                    if (d.times && d.times.length >= 6) {
+                        T = {Fajr:d.times[0], Dhuhr:d.times[2], Asr:d.times[3], Maghrib:d.times[4], Isha:d.times[5]};
+                    }
+                }
+            } catch(e) {}
+
+            /* 2. Aladhan fallback */
+            if (!T) {
+                try {
+                    var now = new Date();
+                    var url = 'https://api.aladhan.com/v1/timings/'
+                        + now.getDate() + '-' + (now.getMonth()+1) + '-' + now.getFullYear()
+                        + '?latitude=49.8951&longitude=-97.1384&method=2';
+                    var res = await fetch(url, {mode:'cors'});
+                    var data = await res.json();
+                    if (data.code === 200) T = data.data.timings;
+                } catch(e) {}
+            }
+
+            /* 3. Static fallback */
+            if (!T) T = {Fajr:'06:12', Dhuhr:'12:41', Asr:'15:34', Maghrib:'18:09', Isha:'19:38'};
+
+            /* Appliquer aux IDs home */
+            var map = {Fajr:'fajr-time', Dhuhr:'dhuhr-time', Asr:'asr-time', Maghrib:'maghrib-time', Isha:'isha-time'};
+            var cardMap = {Fajr:'card-fajr', Dhuhr:'card-dhuhr', Asr:'card-asr', Maghrib:'card-maghrib', Isha:'card-isha'};
+
+            var nm = new Date().getHours()*60 + new Date().getMinutes();
+            var active = 'Isha';
+            ['Fajr','Dhuhr','Asr','Maghrib','Isha'].forEach(function(k) {
+                var raw = T[k] || T[k.toLowerCase()] || '';
+                var t24 = raw.split(' ')[0];
+                var el = document.getElementById(map[k]);
+                if (el) el.textContent = fmtTime(t24);
+                if (t24) {
+                    var p = t24.split(':').map(Number);
+                    if (nm >= p[0]*60 + p[1]) active = k;
+                }
+            });
+
+            /* Carte active */
+            ['Fajr','Dhuhr','Asr','Maghrib','Isha'].forEach(function(k) {
+                var el = document.getElementById(cardMap[k]);
+                if (el) el.classList.toggle('active-prayer', k === active);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadHomePrayers);
+    })();
+
+    /* ── COUNTERS ANIMATION ── */
+    document.addEventListener('DOMContentLoaded', function() {
+        var nums = document.querySelectorAll('.stat-number[data-target]');
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (!e.isIntersecting) return;
+                var el = e.target;
+                var target = parseInt(el.getAttribute('data-target'));
+                var start = 0, duration = 1800;
+                var step = function(ts) {
+                    if (!start) start = ts;
+                    var prog = Math.min((ts - start) / duration, 1);
+                    el.textContent = Math.floor(prog * target);
+                    if (prog < 1) requestAnimationFrame(step);
+                    else el.textContent = target;
+                };
+                requestAnimationFrame(step);
+                obs.unobserve(el);
+            });
+        }, {threshold: 0.5});
+        nums.forEach(function(el) { obs.observe(el); });
+    });
+    </script>
 </body>
 </html>
