@@ -255,9 +255,8 @@
                     <span class="section-label reveal">Who We Are</span>
                     <h2 class="section-title reveal">A Home for the <em>Muslim Community</em> in Winnipeg</h2>
                     <div class="divider reveal"></div>
-                    <p class="reveal">The Winnipeg Rahma Islamic Centre is a vibrant and inclusive Islamic Center dedicated to serving the spiritual, educational, and social needs of Muslims in Winnipeg. Our centre is a welcoming space for individuals of all ages, background, or level of religious knowledge.</p>
-                    <p class="reveal reveal-delay-1">Our mosque is committed to the teachings of the Quran and the Sunnah of the Prophet Muhammad (peace be upon him). We strive to promote compassion and unity among our members and the broader community.</p>
-                    <p class="reveal reveal-delay-2">With a focus on both religious education and community development, we offer various services to enrich the lives of our members and foster a spirit of brotherhood and sisterhood.</p>
+                    <p class="reveal">Winnipeg Rahma Islamic Centre is a vibrant and inclusive Islamic center dedicated to serving the spiritual, educational, and social needs of Muslims in Winnipeg's Kildonan area.</p>
+                    <p class="reveal reveal-delay-1">We are committed to the teachings of the Quran and the Sunnah, striving to promote compassion and unity among our members and the broader community.</p>
                     <div class="about-stats reveal reveal-delay-2">
                         <div class="stat-item"><span class="stat-number" data-target="5">0</span><span class="stat-label">Daily Prayers</span></div>
                         <div class="stat-item"><span class="stat-number" data-target="5">0</span><span class="stat-label">Programs</span></div>
@@ -401,7 +400,7 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#5d2f3c35303c342e313c30343e3e3833292f381d3a303c3431733e3230"><span class="__cf_email__" data-cfemail="8bf9eae3e6eae2f8e7eae6e2e8e8eee5fff9eecbece6eae2e7a5e8e4e6">[email&#160;protected]</span></a></span></div>
             </div>
         </div>
                         <div class="footer-bottom">
@@ -410,8 +409,22 @@
             </div>
         </div>
     </footer>
-    <script src="shared.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
     <script>
+    /* ── HORLOGE + DATE — PAGE HOME ── */
+    (function tickClock(){
+        var el = document.getElementById('currentTime');
+        var de = document.getElementById('prayerDate');
+        var now = new Date();
+        if (el) {
+            var h = now.getHours(), m = now.getMinutes();
+            var ampm = h >= 12 ? 'PM' : 'AM';
+            el.textContent = (h%12||12) + ':' + String(m).padStart(2,'0') + ' ' + ampm;
+        }
+        if (de) de.textContent = now.toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+        setTimeout(tickClock, 1000);
+    })();
+
     /* ── PRAYER TIMES — PAGE HOME ── */
     (function() {
         function fmtTime(raw) {
@@ -492,14 +505,4 @@
                     var prog = Math.min((ts - start) / duration, 1);
                     el.textContent = Math.floor(prog * target);
                     if (prog < 1) requestAnimationFrame(step);
-                    else el.textContent = target;
-                };
-                requestAnimationFrame(step);
-                obs.unobserve(el);
-            });
-        }, {threshold: 0.5});
-        nums.forEach(function(el) { obs.observe(el); });
-    });
-    </script>
-</body>
-</html>
+                    else el.t
