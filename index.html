@@ -267,7 +267,7 @@
     <div id="loader">
   <div class="loader-star"></div>
   <div class="loader-text">RAHMA</div>
-  <div class="loader-arabic">بِسْمِ ٱللَّٰهِ</div>
+  <div class="loader-arabic"><img src="bismillah.svg" alt="Bismillah" class="bismillah-svg-loader"></div>
   <div class="loader-bar"><div class="loader-fill"></div></div>
 </div>
 
@@ -309,7 +309,7 @@
         <div class="hero-pattern"></div>
         <!-- Calligraphie Bismillah en filigrane -->
         <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:1;">
-            <div style="font-family:'Noto Naskh Arabic',serif;font-size:clamp(3rem,12vw,10rem);color:rgba(201,168,76,0.04);direction:rtl;letter-spacing:0.05em;text-align:center;line-height:1.2;user-select:none;">بِسْمِ ٱللَّٰهِ<br>الرَّحْمَٰنِ الرَّحِيمِ</div>
+            <div style="text-align:center;user-select:none;opacity:0.06;"><img src="bismillah.svg" alt="" style="width:clamp(200px,50vw,600px);filter:blur(0.5px)"></div>
         </div></div>
         <div class="hero-content">
             <p class="hero-eyebrow">  </p>
@@ -479,6 +479,10 @@
             </div>
         </div>
     </section>
+    <section class="newsletter-section"><div class="container"><div class="newsletter-inner">
+        <div class="newsletter-text"><h3>Stay Connected</h3><p>Get updates on events &amp; announcements</p></div>
+        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)"><input type="email" class="newsletter-input" placeholder="Your email address" required><button type="submit" class="newsletter-btn">Subscribe</button></form>
+    </div></div></section>
     <footer class="footer"><div class="container">
         <div class="footer-shahada">لَا إِلَٰهَ إِلَّا ٱللَّٰهُ مُحَمَّدٌ رَسُولُ ٱللَّٰهِ</div>
         <div class="footer-grid">
@@ -486,7 +490,7 @@
             <div class="footer-col"><h4>Navigation</h4><ul>
                 <li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li>
                 <li><a href="programs.html">Programs &amp; Services</a></li><li><a href="education.html">Education</a></li>
-                <li><a href="events.html">Events</a></li><li><a href="index.html#about">About</a></li><li><a href="contact.html">Contact</a></li>
+                <li><a href="events.html">Events</a></li><li><a href="contact.html">Contact</a></li>
             </ul></div>
             <div class="footer-col"><h4>Programs</h4><ul>
                 <li><a href="education.html">Quran Classes</a></li><li><a href="education.html">Arabic Classes</a></li>
@@ -495,63 +499,44 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#fc8e9d94919d958f909d91959f9f9992888e99bc9b919d9590d29f9391"><span class="__cf_email__" data-cfemail="304251585d5159435c515d595353555e44425570575d51595c1e535f5d">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
             </div>
         </div>
-                                        <span>Powered by Devodez Solutions</span>
-            </div>
+        <div class="footer-bottom">
+            <span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span>
+            <span>Powered by Devodez Solutions</span>
         </div>
-    </footer>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
+    </div></footer>
+    <script src="shared.js"></script>
     <script>
-    /* ── HORLOGE + DATE — PAGE HOME ── */
     (function tickClock(){
-        var el = document.getElementById('currentTime');
-        var de = document.getElementById('prayerDate');
-        var now = new Date();
-        if (el) {
-            var h = now.getHours(), m = now.getMinutes();
-            var ampm = h >= 12 ? 'PM' : 'AM';
-            el.textContent = (h%12||12) + ':' + String(m).padStart(2,'0') + ' ' + ampm;
-        }
-        if (de) de.textContent = now.toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
-        setTimeout(tickClock, 1000);
+        var el=document.getElementById('currentTime');
+        var de=document.getElementById('prayerDate');
+        var now=new Date();
+        if(el){var h=now.getHours(),m=now.getMinutes(),ap=h>=12?'PM':'AM';el.textContent=(h%12||12)+':'+(m<10?'0':'')+m+' '+ap;}
+        if(de)de.textContent=now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+        setTimeout(tickClock,1000);
     })();
-
-    /* ── PRAYER TIMES — PAGE HOME ── */
-    (function() {
-        function fmtTime(raw) {
-            if (!raw) return '—';
-            var t = raw.split(' ')[0].split(':');
-            var h = parseInt(t[0]), m = t[1];
-            return (h % 12 || 12) + ':' + m + ' ' + (h >= 12 ? 'PM' : 'AM');
+    (function(){
+        function fmtTime(raw){if(!raw)return'—';var t=raw.split(' ')[0].split(':');var h=parseInt(t[0]),m=t[1];return(h%12||12)+':'+m+(h>=12?' PM':' AM');}
+        async function loadHomePrayers(){
+            var T=null;
+            try{var r=await fetch('https://mawaqit.net/api/2.0/mosque/by-slug/rahma-islamic-centre-winnipeg/prayer-times');if(r.ok){var d=await r.json();if(d.times&&d.times.length>=6)T={Fajr:d.times[0],Dhuhr:d.times[2],Asr:d.times[3],Maghrib:d.times[4],Isha:d.times[5]};}}catch(e){}
+            if(!T){try{var now=new Date();var url='https://api.aladhan.com/v1/timings/'+now.getDate()+'-'+(now.getMonth()+1)+'-'+now.getFullYear()+'?latitude=49.8951&longitude=-97.1384&method=2';var res=await fetch(url);var data=await res.json();if(data.code===200)T=data.data.timings;}catch(e){}}
+            if(!T)T={Fajr:'06:12',Dhuhr:'12:41',Asr:'15:34',Maghrib:'18:09',Isha:'19:38'};
+            var map={Fajr:'fajr-time',Dhuhr:'dhuhr-time',Asr:'asr-time',Maghrib:'maghrib-time',Isha:'isha-time'};
+            var cardMap={Fajr:'card-fajr',Dhuhr:'card-dhuhr',Asr:'card-asr',Maghrib:'card-maghrib',Isha:'card-isha'};
+            var nm=new Date().getHours()*60+new Date().getMinutes(),active='Isha';
+            ['Fajr','Dhuhr','Asr','Maghrib','Isha'].forEach(function(k){var raw=T[k]||T[k.toLowerCase()]||'';var t24=raw.split(' ')[0];var el=document.getElementById(map[k]);if(el)el.textContent=fmtTime(t24);if(t24){var p=t24.split(':').map(Number);if(nm>=p[0]*60+p[1])active=k;}});
+            ['Fajr','Dhuhr','Asr','Maghrib','Isha'].forEach(function(k){var el=document.getElementById(cardMap[k]);if(el)el.classList.toggle('active-prayer',k===active);});
         }
-        async function loadHomePrayers() {
-            var T = null;
-            try {
-                var r = await fetch('https://mawaqit.net/api/2.0/mosque/by-slug/rahma-islamic-centre-winnipeg/prayer-times');
-                if (r.ok) { var d = await r.json(); if (d.times && d.times.length >= 6) T = {Fajr:d.times[0], Dhuhr:d.times[2], Asr:d.times[3], Maghrib:d.times[4], Isha:d.times[5]}; }
-            } catch(e) {}
-            if (!T) { try { var now = new Date(); var url = 'https://api.aladhan.com/v1/timings/'+now.getDate()+'-'+(now.getMonth()+1)+'-'+now.getFullYear()+'?latitude=49.8951&longitude=-97.1384&method=2'; var res = await fetch(url,{mode:'cors'}); var data = await res.json(); if (data.code === 200) T = data.data.timings; } catch(e) {} }
-            if (!T) T = {Fajr:'06:12', Dhuhr:'12:41', Asr:'15:34', Maghrib:'18:09', Isha:'19:38'};
-            var map     = {Fajr:'fajr-time', Dhuhr:'dhuhr-time', Asr:'asr-time', Maghrib:'maghrib-time', Isha:'isha-time'};
-            var cardMap = {Fajr:'card-fajr',  Dhuhr:'card-dhuhr', Asr:'card-asr', Maghrib:'card-maghrib', Isha:'card-isha'};
-            var nm = new Date().getHours()*60 + new Date().getMinutes(), active = 'Isha';
-            ['Fajr','Dhuhr','Asr','Maghrib','Isha'].forEach(function(k) {
-                var raw = T[k] || T[k.toLowerCase()] || ''; var t24 = raw.split(' ')[0];
-                var el = document.getElementById(map[k]); if (el) el.textContent = fmtTime(t24);
-                if (t24) { var p = t24.split(':').map(Number); if (nm >= p[0]*60+p[1]) active = k; }
-            });
-            ['Fajr','Dhuhr','Asr','Maghrib','Isha'].forEach(function(k) { var el = document.getElementById(cardMap[k]); if (el) el.classList.toggle('active-prayer', k === active); });
-        }
-        document.addEventListener('DOMContentLoaded', loadHomePrayers);
+        document.addEventListener('DOMContentLoaded',loadHomePrayers);
     })();
-
-    /* ── COUNTERS ANIMATION ── */
-    document.addEventListener('DOMContentLoaded', function() {
-        var nums = document.querySelectorAll('.stat-number[data-target]');
-        var obs = new IntersectionObserver(function(entries) {
-            entries.forEach(function(e) {
-                if (!e.isIntersecting) return;
-                var el = e.target, target = parseInt(el.getAttribute('data-target')), start = 0, duration = 1800;
-                var step = function(ts) { if (!start) start = ts; var prog = Math.min((ts-start)/duration,1); el.textContent = Math.floor(prog*target); if (prog < 1) reque
+    document.addEventListener('DOMContentLoaded',function(){
+        var nums=document.querySelectorAll('.stat-number[data-target]');
+        var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(!e.isIntersecting)return;var el=e.target,target=parseInt(el.getAttribute('data-target')),start=0,duration=1800;var step=function(ts){if(!start)start=ts;var prog=Math.min((ts-start)/duration,1);el.textContent=Math.floor(prog*target);if(prog<1)requestAnimationFrame(step);else el.textContent=target;};requestAnimationFrame(step);obs.unobserve(el);});},{threshold:0.5});
+        nums.forEach(function(el){obs.observe(el);});
+    });
+    </script>
+</body>
+</html>

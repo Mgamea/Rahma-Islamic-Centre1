@@ -252,7 +252,7 @@
 <div id="loader">
   <div class="loader-star"></div>
   <div class="loader-text">RAHMA</div>
-  <div class="loader-arabic">بِسْمِ ٱللَّٰهِ</div>
+  <div class="loader-arabic"><img src="bismillah.svg" alt="Bismillah" class="bismillah-svg-loader"></div>
   <div class="loader-bar"><div class="loader-fill"></div></div>
 </div>
 
@@ -369,6 +369,10 @@
         <div class="newsletter-text"><h3>Stay Connected</h3><p>Get updates on events &amp; announcements</p></div>
         <form class="newsletter-form" onsubmit="subscribeNewsletter(event)"><input type="email" class="newsletter-input" placeholder="Your email address" required><button type="submit" class="newsletter-btn">Subscribe</button></form>
     </div></div></section>
+    <section class="newsletter-section"><div class="container"><div class="newsletter-inner">
+        <div class="newsletter-text"><h3>Stay Connected</h3><p>Get updates on events &amp; announcements</p></div>
+        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)"><input type="email" class="newsletter-input" placeholder="Your email address" required><button type="submit" class="newsletter-btn">Subscribe</button></form>
+    </div></div></section>
     <footer class="footer"><div class="container">
         <div class="footer-shahada">لَا إِلَٰهَ إِلَّا ٱللَّٰهُ مُحَمَّدٌ رَسُولُ ٱللَّٰهِ</div>
         <div class="footer-grid">
@@ -376,7 +380,7 @@
             <div class="footer-col"><h4>Navigation</h4><ul>
                 <li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li>
                 <li><a href="programs.html">Programs &amp; Services</a></li><li><a href="education.html">Education</a></li>
-                <li><a href="events.html">Events</a></li><li><a href="index.html#about">About</a></li><li><a href="contact.html">Contact</a></li>
+                <li><a href="events.html">Events</a></li><li><a href="contact.html">Contact</a></li>
             </ul></div>
             <div class="footer-col"><h4>Programs</h4><ul>
                 <li><a href="education.html">Quran Classes</a></li><li><a href="education.html">Arabic Classes</a></li>
@@ -385,7 +389,78 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#afddcec7c2cec6dcc3cec2c6cccccac1dbddcaefc8c2cec6c381ccc0c2"><span class="__cf_email__" data-cfemail="98eaf9f0f5f9f1ebf4f9f5f1fbfbfdf6eceafdd8fff5f9f1f4b6fbf7f5">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
             </div>
         </div>
-                               
+        <div class="footer-bottom">
+            <span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span>
+            <span>Powered by Devodez Solutions</span>
+        </div>
+    </div></footer>
+    <script src="shared.js"></script>
+    <script>
+(function tick(){
+    var el = document.getElementById('todayClock');
+    if (el) el.textContent = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true});
+    setTimeout(tick, 1000);
+})();
+(function(){ var el=document.getElementById('todayDate'); if(el) el.textContent=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'}); })();
+function addM(t,m){var p=t.split(':').map(Number),tot=p[0]*60+p[1]+m;return String(Math.floor(tot/60)%24).padStart(2,'0')+':'+String(tot%60).padStart(2,'0');}
+function fmtTime(raw){if(!raw)return'\u2014';var t=raw.split(' ')[0].split(':');var h=parseInt(t[0]),m=t[1];return(h%12||12)+':'+m+(h>=12?' PM':' AM');}
+function setBadge(src){var b=document.getElementById('apiBadge');if(!b)return;var colors={mawaqit:'#4ade80',aladhan:'#fbbf24',static:'#9ca3af'};var labels={mawaqit:'Mawaqit.net \u2713',aladhan:'Aladhan API',static:'Horaires statiques'};b.innerHTML='<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+colors[src]+';margin-right:8px;"></span>'+labels[src];}
+function applyPrayers(T,src){
+    setBadge(src);
+    var IQ={Fajr:20,Dhuhr:20,Asr:15,Maghrib:5,Isha:15};
+    var tIds={Fajr:'t-fajr',Dhuhr:'t-dhuhr',Asr:'t-asr',Maghrib:'t-maghrib',Isha:'t-isha'};
+    var iIds={Fajr:'iq-fajr',Dhuhr:'iq-dhuhr',Asr:'iq-asr',Maghrib:'iq-maghrib',Isha:'iq-isha'};
+    var cIds={Fajr:'tp-fajr',Dhuhr:'tp-dhuhr',Asr:'tp-asr',Maghrib:'tp-maghrib',Isha:'tp-isha'};
+    var nm=new Date().getHours()*60+new Date().getMinutes(),active='tp-isha';
+    ['Fajr','Dhuhr','Asr','Maghrib','Isha'].forEach(function(k){
+        var raw=T[k]||T[k.toLowerCase()]||'',t24=raw.split(' ')[0];
+        var el=document.getElementById(tIds[k]);if(el){el.textContent=fmtTime(t24);el.classList.remove('loading');}
+        var iq=document.getElementById(iIds[k]);if(iq&&t24){iq.textContent='Iqamah: '+fmtTime(addM(t24,IQ[k]));iq.classList.remove('loading');}
+        if(t24){var p=t24.split(':').map(Number);if(nm>=p[0]*60+p[1])active=cIds[k];}
+    });
+    Object.values(cIds).forEach(function(id){var el=document.getElementById(id);if(el)el.classList.toggle('active-prayer',id===active);});
+}
+async function loadToday(){
+    var T=null,src='static';
+    try{var r=await fetch('https://mawaqit.net/api/2.0/mosque/by-slug/rahma-islamic-centre-winnipeg/prayer-times');if(r.ok){var d=await r.json();if(d.times&&d.times.length>=6){T={Fajr:d.times[0],Dhuhr:d.times[2],Asr:d.times[3],Maghrib:d.times[4],Isha:d.times[5]};src='mawaqit';}}}catch(e){}
+    if(!T){try{var now=new Date();var url='https://api.aladhan.com/v1/timings/'+now.getDate()+'-'+(now.getMonth()+1)+'-'+now.getFullYear()+'?latitude=49.8951&longitude=-97.1384&method=2';var res=await fetch(url,{mode:'cors'});var data=await res.json();if(data.code===200){T=data.data.timings;src='aladhan';}}catch(e){}}
+    if(!T){T={Fajr:'06:12',Dhuhr:'12:41',Asr:'15:34',Maghrib:'18:09',Isha:'19:38'};}
+    applyPrayers(T,src);return T;
+}
+async function loadMonth(month,year){
+    var tbody=document.querySelector('#prayerTable tbody');if(!tbody)return;
+    tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--muted)"><i class="fas fa-spinner fa-spin" style="color:var(--gold);margin-right:8px"></i>Loading...</td></tr>';
+    try{
+        var res=await fetch('https://api.aladhan.com/v1/calendar/'+year+'/'+month+'?latitude=49.8951&longitude=-97.1384&method=2',{mode:'cors'});
+        var data=await res.json();if(data.code!==200)throw new Error();
+        var html='',today=new Date();
+        data.data.forEach(function(day){
+            var g=day.date.gregorian,hj=day.date.hijri,t=day.timings;
+            var dt=new Date(+g.year,g.month.number-1,+g.day);
+            var isFri=dt.getDay()===5,isToday=+g.year===today.getFullYear()&&g.month.number-1===today.getMonth()&&+g.day===today.getDate();
+            var rs=isToday?'background:rgba(201,168,76,0.12);font-weight:600;':(isFri?'background:rgba(201,168,76,0.05);':'');
+            html+='<tr style="'+rs+'"><td>'+g.day+(isFri?' <small style="color:var(--gold)">Jum.</small>':'')+'</td>';
+            html+='<td>'+hj.day+' '+hj.month.en+'</td><td>'+fmtTime(t.Fajr)+'</td><td>'+fmtTime(t.Sunrise)+'</td><td>'+fmtTime(t.Dhuhr)+'</td><td>'+fmtTime(t.Asr)+'</td><td>'+fmtTime(t.Maghrib)+'</td></tr>';
+        });
+        tbody.innerHTML=html;
+    }catch(e){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:30px;">Unable to load.</td></tr>';}
+}
+document.addEventListener('DOMContentLoaded',function(){
+    loadToday();
+    var now=new Date();
+    loadMonth(now.getMonth()+1,now.getFullYear());
+    var picker=document.getElementById('monthPicker');
+    if(picker){
+        picker.value=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+        picker.addEventListener('change',function(){
+            var parts=this.value.split('-');
+            loadMonth(parseInt(parts[1]),parseInt(parts[0]));
+        });
+    }
+});
+    </script>
+</body>
+</html>

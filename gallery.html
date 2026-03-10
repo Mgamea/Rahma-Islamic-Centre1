@@ -124,7 +124,7 @@
 <div id="loader">
   <div class="loader-star"></div>
   <div class="loader-text">RAHMA</div>
-  <div class="loader-arabic">بِسْمِ ٱللَّٰهِ</div>
+  <div class="loader-arabic"><img src="bismillah.svg" alt="Bismillah" class="bismillah-svg-loader"></div>
   <div class="loader-bar"><div class="loader-fill"></div></div>
 </div>
         <div class="mobile-menu" id="mobileMenu">
@@ -192,6 +192,10 @@
         <div class="newsletter-text"><h3>Stay Connected</h3><p>Get updates on events &amp; announcements</p></div>
         <form class="newsletter-form" onsubmit="subscribeNewsletter(event)"><input type="email" class="newsletter-input" placeholder="Your email address" required><button type="submit" class="newsletter-btn">Subscribe</button></form>
     </div></div></section>
+    <section class="newsletter-section"><div class="container"><div class="newsletter-inner">
+        <div class="newsletter-text"><h3>Stay Connected</h3><p>Get updates on events &amp; announcements</p></div>
+        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)"><input type="email" class="newsletter-input" placeholder="Your email address" required><button type="submit" class="newsletter-btn">Subscribe</button></form>
+    </div></div></section>
     <footer class="footer"><div class="container">
         <div class="footer-shahada">لَا إِلَٰهَ إِلَّا ٱللَّٰهُ مُحَمَّدٌ رَسُولُ ٱللَّٰهِ</div>
         <div class="footer-grid">
@@ -199,7 +203,7 @@
             <div class="footer-col"><h4>Navigation</h4><ul>
                 <li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li>
                 <li><a href="programs.html">Programs &amp; Services</a></li><li><a href="education.html">Education</a></li>
-                <li><a href="events.html">Events</a></li><li><a href="index.html#about">About</a></li><li><a href="contact.html">Contact</a></li>
+                <li><a href="events.html">Events</a></li><li><a href="contact.html">Contact</a></li>
             </ul></div>
             <div class="footer-col"><h4>Programs</h4><ul>
                 <li><a href="education.html">Quran Classes</a></li><li><a href="education.html">Arabic Classes</a></li>
@@ -208,18 +212,22 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#403221282d2129332c212d292323252e34322500272d21292c6e232f2d"><span class="__cf_email__" data-cfemail="aedccfc6c3cfc7ddc2cfc3c7cdcdcbc0dadccbeec9c3cfc7c280cdc1c3">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
             </div>
         </div>
-                                        <span>Powered by Devodez Solutions</span>
-            </div>
+        <div class="footer-bottom">
+            <span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span>
+            <span>Powered by Devodez Solutions</span>
         </div>
-    </footer>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
+    </div></footer>
+    <script src="shared.js"></script>
     <script>
     var _lbImgs = Array.from(document.querySelectorAll('.gallery-item-page img')).map(function(i){return i.src;});
     var _lbIdx = 0;
-    function openLb(n) { _lbIdx=n; var lb=document.getElementById('lightbox'); var img=document.getElementById('lbImg'); if(!lb||!img)return; img.src=_lbImgs[n]||''; lb.style.display='flex'; document.body.style.overflow='hidden'; }
-    function closeLb() { var lb=document.getElementById('lightbox'); if(lb)lb.style.display='none'; document.body.style.overflow=''; }
-    function moveLb(dir) { _lbIdx=(_lbIdx+dir+_lbImgs.length)%_lbImgs.length; var img=document.getElementById('lbImg'); if(img)img.src=_lbImgs[_lbIdx]||''; }
-    doc
+    function openLb(n){_lbIdx=n;var lb=document.getElementById('lightbox');var img=document.getElementById('lbImg');if(!lb||!img)return;img.src=_lbImgs[n]||'';lb.style.display='flex';document.body.style.overflow='hidden';}
+    function closeLb(){var lb=document.getElementById('lightbox');if(lb)lb.style.display='none';document.body.style.overflow='';}
+    function moveLb(dir){_lbIdx=(_lbIdx+dir+_lbImgs.length)%_lbImgs.length;var img=document.getElementById('lbImg');if(img)img.src=_lbImgs[_lbIdx]||'';}
+    document.addEventListener('keydown',function(e){var lb=document.getElementById('lightbox');if(!lb||lb.style.display==='none')return;if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft')moveLb(-1);if(e.key==='ArrowRight')moveLb(1);});
+    </script>
+</body>
+</html>

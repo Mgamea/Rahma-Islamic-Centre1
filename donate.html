@@ -127,7 +127,7 @@
     <div id="loader">
   <div class="loader-star"></div>
   <div class="loader-text">RAHMA</div>
-  <div class="loader-arabic">بِسْمِ ٱللَّٰهِ</div>
+  <div class="loader-arabic"><img src="bismillah.svg" alt="Bismillah" class="bismillah-svg-loader"></div>
   <div class="loader-bar"><div class="loader-fill"></div></div>
 </div>
         <div class="mobile-menu" id="mobileMenu">
@@ -217,7 +217,7 @@
             <div class="footer-col"><h4>Navigation</h4><ul>
                 <li><a href="index.html">Home</a></li><li><a href="prayer-times.html">Prayer Times</a></li>
                 <li><a href="programs.html">Programs &amp; Services</a></li><li><a href="education.html">Education</a></li>
-                <li><a href="events.html">Events</a></li><li><a href="index.html#about">About</a></li><li><a href="contact.html">Contact</a></li>
+                <li><a href="events.html">Events</a></li><li><a href="contact.html">Contact</a></li>
             </ul></div>
             <div class="footer-col"><h4>Programs</h4><ul>
                 <li><a href="education.html">Quran Classes</a></li><li><a href="education.html">Arabic Classes</a></li>
@@ -226,13 +226,21 @@
             <div class="footer-col"><h4>Contact</h4>
                 <div class="contact-li"><i class="fas fa-map-marker-alt"></i><span>574 Watt St, Winnipeg, MB R2K 4K1</span></div>
                 <div class="contact-li"><i class="fas fa-phone"></i><span>+1 (431) 792-3791</span></div>
-                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection#d8aab9b0b5b9b1abb4b9b5b1bbbbbdb6acaabd98bfb5b9b1b4f6bbb7b5"><span class="__cf_email__" data-cfemail="7b091a13161a1208171a161218181e150f091e3b1c161a121755181416">[email&#160;protected]</span></a></span></div>
+                <div class="contact-li"><i class="fas fa-envelope"></i><span><a href="mailto:rahmaislamiccentre@gmail.com">rahmaislamiccentre@gmail.com</a></span></div>
             </div>
         </div>
-                                        <span>Powered by Devodez Solutions</span>
-            </div>
+        <div class="footer-bottom">
+            <span>Copyright &copy; 2026 Rahma Islamic Centre. All rights reserved.</span>
+            <span>Powered by Devodez Solutions</span>
         </div>
-    </footer>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
+    </div></footer>
+    <script src="shared.js"></script>
     <script>
-    var _cur='CAD'; function setCur(c){_cur=c;['CAD','USD'].forEach(function(x){var b=document.getElementById('btn'+x);if(!b)return;b.classList.toggle('active',x===c);})} function setAmt(v,el){var inp=document.getElementById('donateAmt');if(inp)inp.value=v;document.querySelectorAll('.amt-btn').forEach(function(p){p.classList.remove('selected');});if(el)el.classList.add('selected')
+    var _cur='CAD';
+    function setCur(c){_cur=c;['CAD','USD'].forEach(function(x){var b=document.getElementById('btn'+x);if(!b)return;b.classList.toggle('active',x===c);});}
+    function setAmt(v,el){var inp=document.getElementById('donateAmt');if(inp)inp.value=v;document.querySelectorAll('.amt-btn').forEach(function(p){p.classList.remove('selected');});if(el)el.classList.add('selected');}
+    function clearAmts(){document.querySelectorAll('.amt-btn').forEach(function(p){p.classList.remove('selected');});}
+    function processDonate(){window.open('https://www.zeffy.com/en-CA/donation-form/rahma-islamic-centre','_blank');}
+    </script>
+</body>
+</html>
