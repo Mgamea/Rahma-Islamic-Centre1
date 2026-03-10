@@ -726,103 +726,74 @@
             <span>Powered by Devodez Solutions</span>
         </div>
     </div></footer>
-
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared.js"></script>
+    <script src="shared.js"></script>
     <script>
-    /* ══════════════════════════════════════════
-       EID REGISTRATION — Storage & Form Logic
-    ══════════════════════════════════════════ */
-
+    /* ══ EID REGISTRATION — Storage ══ */
     const STORAGE_KEY = 'eid-registrations';
 
-    /* ─ Load & save helpers ─ */
     async function loadRegistrations() {
-        try {
-            const r = await window.storage.get(STORAGE_KEY, true);
-            return r ? JSON.parse(r.value) : [];
-        } catch(e) { return []; }
+        try { const r = await window.storage.get(STORAGE_KEY, true); return r ? JSON.parse(r.value) : []; }
+        catch(e) { return []; }
     }
     async function saveRegistrations(data) {
-        await window.storage.set(STORAGE_KEY, JSON.stringify(data), true);
+        try { await window.storage.set(STORAGE_KEY, JSON.stringify(data), true); } catch(e) {}
     }
 
-    /* ─ Update counters on page load ─ */
     async function updateCounters() {
         const regs = await loadRegistrations();
         document.getElementById('cntRegistered').textContent = regs.length;
-        const totalAttendees = regs.reduce(function(s, r) { return s + (parseInt(r.adults)||0) + (parseInt(r.children)||0); }, 0);
-        document.getElementById('cntAttendees').textContent = totalAttendees;
+        const tot = regs.reduce(function(s,r){ return s+(parseInt(r.adults)||0)+(parseInt(r.children)||0); },0);
+        document.getElementById('cntAttendees').textContent = tot;
         document.getElementById('cntSession1').textContent = regs.filter(function(r){ return r.session==='1'; }).length;
         document.getElementById('cntSession2').textContent = regs.filter(function(r){ return r.session==='2'; }).length;
     }
     document.addEventListener('DOMContentLoaded', updateCounters);
 
-    /* ─ Session picker ─ */
     function selectSession(card) {
-        document.querySelectorAll('.session-card').forEach(function(c) { c.classList.remove('selected'); });
+        document.querySelectorAll('.session-card').forEach(function(c){ c.classList.remove('selected'); });
         card.classList.add('selected');
         document.getElementById('selectedSession').value = card.dataset.session;
     }
 
-    /* ─ Counter buttons ─ */
     function adjustCount(field, delta) {
         var el = document.getElementById(field);
-        var min = parseInt(el.min) || 0;
-        var max = parseInt(el.max) || 99;
         var val = parseInt(el.value) + delta;
-        el.value = Math.max(min, Math.min(max, val));
+        el.value = Math.max(parseInt(el.min)||0, Math.min(parseInt(el.max)||99, val));
     }
 
-    /* ─ Generate reference number ─ */
     function genRef() {
         return 'EID-' + Math.random().toString(36).substring(2,6).toUpperCase() + Date.now().toString().slice(-4);
     }
 
-    /* ─ Form submission ─ */
     document.getElementById('eidForm').addEventListener('submit', async function(e) {
         e.preventDefault();
-
-        /* Validate session */
         if (!document.getElementById('selectedSession').value) {
-            alert('Please select a session (Session 1 or Session 2).');
-            return;
+            alert('Please select a session (Session 1 or Session 2).'); return;
         }
         if (!document.getElementById('agreeTerms').checked) {
-            alert('Please confirm you will attend in person.');
-            return;
+            alert('Please confirm you will attend in person.'); return;
         }
-
         var btn = document.getElementById('submitBtn');
-        btn.classList.add('loading');
-        btn.textContent = 'Registering…';
-
-        /* Build record */
+        btn.classList.add('loading'); btn.textContent = 'Registering…';
         var ref = genRef();
         var record = {
-            ref:           ref,
-            timestamp:     new Date().toISOString(),
-            firstName:     document.getElementById('firstName').value.trim(),
-            lastName:      document.getElementById('lastName').value.trim(),
-            email:         document.getElementById('email').value.trim(),
-            phone:         document.getElementById('phone').value.trim(),
-            session:       document.getElementById('selectedSession').value,
-            adults:        document.getElementById('adults').value,
-            children:      document.getElementById('children').value,
+            ref: ref, timestamp: new Date().toISOString(),
+            firstName: document.getElementById('firstName').value.trim(),
+            lastName:  document.getElementById('lastName').value.trim(),
+            email:     document.getElementById('email').value.trim(),
+            phone:     document.getElementById('phone').value.trim(),
+            session:   document.getElementById('selectedSession').value,
+            adults:    document.getElementById('adults').value,
+            children:  document.getElementById('children').value,
             accessibility: document.getElementById('accessibility').value,
-            notes:         document.getElementById('notes').value.trim(),
-            newsletter:    document.getElementById('newsletter').checked
+            notes:     document.getElementById('notes').value.trim(),
+            newsletter: document.getElementById('newsletter').checked
         };
-
-        /* Save */
         try {
             var regs = await loadRegistrations();
             regs.push(record);
             await saveRegistrations(regs);
-        } catch(err) {
-            console.error('Storage error:', err);
-        }
-
-        /* Show success */
+        } catch(err) { console.error('Storage error:', err); }
         setTimeout(function() {
             document.getElementById('successRef').textContent = '— Registration ' + ref + ' —';
             document.getElementById('successOverlay').classList.add('show');
@@ -830,7 +801,6 @@
         }, 800);
     });
 
-    /* ─ Reset form ─ */
     function resetForm() {
         document.getElementById('eidForm').reset();
         document.getElementById('adults').value = 1;
@@ -838,4 +808,9 @@
         document.getElementById('selectedSession').value = '';
         document.querySelectorAll('.session-card').forEach(function(c){ c.classList.remove('selected'); });
         document.getElementById('successOverlay').classList.remove('show');
-  
+        document.getElementById('submitBtn').classList.remove('loading','success');
+        document.getElementById('submitBtn').innerHTML = '<i class="fas fa-check-circle" style="margin-right:10px"></i>Complete Registration';
+    }
+    </script>
+</body>
+</html>
